@@ -14,7 +14,6 @@ $dom->load($html);
 
 $items = $dom->find('.post-list-wrap .post-list-container-item');
 $posts = array();
-$unique_keys = array();
 
 foreach($items as $item) {
   $post = array();
@@ -25,18 +24,18 @@ foreach($items as $item) {
   
   if(count($result) >= 1) continue;
   
-  $unique_keys[] = $id;
   $post['id']    = $id;
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
   $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
   
+  print_r(json_encode($post));
   
   $posts[] = $post;
 }
 
-$result = scraperwiki::save_sqlite($unique_keys, $posts, 'posts');
+$result = scraperwiki::save_sqlite(array('id'), $posts, 'posts');
 
 print_r(json_encode($result));
 print_r(json_encode($posts));
