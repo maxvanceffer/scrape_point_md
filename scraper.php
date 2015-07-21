@@ -32,13 +32,16 @@ foreach($items as $item) {
   
   print_r(json_encode($post));
   
-  $posts[] = $post;
+  $result = scraperwiki::save_sqlite(array('id'), array(
+      'id' => $id,
+      'title' => $post['title'],
+      'image' => $post['image'],
+      'description' => $post['description'],
+      'keyword' => $post['keywords']
+  ),'posts');
+    
+  print_r(json_encode($result));
 }
-
-$result = scraperwiki::save_sqlite(array('id'), $posts, 'posts');
-
-print_r(json_encode($result));
-print_r(json_encode($posts));
 
 // print_r($dom->find("table.list"));
 //
