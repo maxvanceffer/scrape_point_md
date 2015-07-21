@@ -23,8 +23,9 @@ foreach($items as $item) {
   $result = scraperwiki::select("* from posts where 'id'='$id'");
   print_r(json_encode($result));
   
-  if(!is_null($result) && count($result) >= 1) continue;
+  if(count($result) >= 1) continue;
   
+  $unique_keys[] = $id;
   $post['id']    = $id;
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
