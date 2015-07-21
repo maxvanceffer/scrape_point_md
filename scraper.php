@@ -24,7 +24,7 @@ foreach($items as $item) {
   
   if(count($result) >= 1) continue;
   
-  $post['id']    = $id;
+  $post['id']    = hexdec( md5($id) );
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
