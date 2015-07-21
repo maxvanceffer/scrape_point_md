@@ -12,7 +12,7 @@ $html = scraperwiki::scrape("http://point.md");
 $dom = new simple_html_dom();
 $dom->load($html);
 
-$items = $dom->find('.post-list-container-item');
+$items = $dom->find('.post-list-wrap .post-list-container-item');
 $posts = array();
 
 foreach($items as $item) {
@@ -22,7 +22,7 @@ foreach($items as $item) {
   $post['id']    = $item->getAttribute('data-id');
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
-  $post['keywords'] = $item->find('div.class="post-list-container-item-text-info"')[0]->find('span')[2]->text();
+  $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
   
   print_r(json_encode($post));
   $posts[] = $post;
