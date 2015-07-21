@@ -20,7 +20,7 @@ foreach($items as $item) {
   
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['id']    = $item->getAttribute('data-id');
-  $post['image'] = $item->find('.post-list-container-item-img img')->getAttribute('src');
+  $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')->text();
   $post['keywords'] = $item->find('div.class="post-list-container-item-text-info"')->find('span')[2]->text();
   
