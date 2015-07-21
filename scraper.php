@@ -2,15 +2,32 @@
 // This is a template for a PHP scraper on morph.io (https://morph.io)
 // including some code snippets below that you should find helpful
 
-// require 'scraperwiki.php';
-// require 'scraperwiki/simple_html_dom.php';
+require 'scraperwiki.php';
+require 'scraperwiki/simple_html_dom.php';
 //
 // // Read in a page
-// $html = scraperwiki::scrape("http://foo.com");
+$html = scraperwiki::scrape("http://point.md");
 //
 // // Find something on the page using css selectors
-// $dom = new simple_html_dom();
-// $dom->load($html);
+$dom = new simple_html_dom();
+$dom->load($html);
+
+$items = $dom->find('.post-list-container-item');
+$posts = array();
+
+foreach($items as $item) {
+  $post = array();
+  
+  $post['title'] => $item->find('a[itemprop="URL"]')->text();
+  $post['id']    => $item->attribute('data-id');
+  $post['image'] => $item->find('.post-list-container-item-img img')->attribute('src');
+  $post['description'] = $item->find('p[itemprop="description"]')->text();
+  $post['keywords'] => $item->find('div.class="post-list-container-item-text-info"')->find('span')[2]->text();
+  
+  print_r(json_encode($post));
+  $posts[] = $post;
+}
+
 // print_r($dom->find("table.list"));
 //
 // // Write out to the sqlite database using scraperwiki library
