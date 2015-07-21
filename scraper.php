@@ -19,8 +19,8 @@ foreach($items as $item) {
   $post = array();
   
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
-  $post['id']    = $item->attribute('data-id');
-  $post['image'] = $item->find('.post-list-container-item-img img')->attribute('src');
+  $post['id']    = $item->getAttribute('data-id');
+  $post['image'] = $item->find('.post-list-container-item-img img')->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')->text();
   $post['keywords'] = $item->find('div.class="post-list-container-item-text-info"')->find('span')[2]->text();
   
