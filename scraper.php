@@ -18,11 +18,11 @@ $posts = array();
 foreach($items as $item) {
   $post = array();
   
-  $post['title'] => $item->find('a[itemprop="URL"]')->text();
-  $post['id']    => $item->attribute('data-id');
-  $post['image'] => $item->find('.post-list-container-item-img img')->attribute('src');
+  $post['title'] = $item->find('a[itemprop="URL"]')->text();
+  $post['id']    = $item->attribute('data-id');
+  $post['image'] = $item->find('.post-list-container-item-img img')->attribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')->text();
-  $post['keywords'] => $item->find('div.class="post-list-container-item-text-info"')->find('span')[2]->text();
+  $post['keywords'] = $item->find('div.class="post-list-container-item-text-info"')->find('span')[2]->text();
   
   print_r(json_encode($post));
   $posts[] = $post;
