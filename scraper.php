@@ -24,9 +24,10 @@ foreach($items as $item) {
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
   $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
   
-  print_r(json_encode($post));
   $posts[] = $post;
 }
+
+  print_r(json_encode($posts));
 
 // print_r($dom->find("table.list"));
 //
