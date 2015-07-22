@@ -18,6 +18,8 @@ $posts = array();
 $last  = scraperwiki::select("id from posts LIMIT 1");
 $last  = (count($last) == 0) ? 1 : $last[0];
 
+print_r('Last id '.$last);
+
 print_r(json_encode($last));
 
 foreach($items as $item) {
