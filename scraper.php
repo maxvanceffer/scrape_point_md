@@ -15,12 +15,8 @@ $dom->load($html);
 $items = $dom->find('.post-list-wrap .post-list-container-item');
 $posts = array();
 $last  = scraperwiki::select("id from posts LIMIT 1");
-if(count($last) == 0) {
-  $last = 1
-}
-else {
-  $last = $last[0];
-}
+$last  = (count($last) == 0) ? 1 : $last[0];
+
 print_r(json_encode($last));
 
 foreach($items as $item) {
@@ -32,7 +28,7 @@ foreach($items as $item) {
   
   if(count($result) >= 1) continue;
   
-  $post['id']    = $last ++;
+  $post['id']    = $last++;
   $post['uuid']  = $id;
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
