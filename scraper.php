@@ -38,7 +38,8 @@ foreach($items as $item) {
   print_r(json_encode($post));
   
   $result = scraperwiki::save_sqlite(array('id'), array(
-      'id' => $id,
+      'id' => $post['id'],
+      'uuid' => $post['uuid'],
       'title' => $post['title'],
       'image' => $post['image'],
       'description' => $post['description'],
