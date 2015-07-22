@@ -10,6 +10,7 @@ $html = scraperwiki::scrape("http://point.md");
 //
 // // Find something on the page using css selectors
 $dom = new simple_html_dom();
+$dom1 = new simple_html_dom();
 $dom->load($html);
 
 $items = $dom->find('.post-list-wrap .post-list-container-item');
@@ -38,10 +39,10 @@ foreach($items as $item) {
   
   if($post['url'] != '') {
     print_r('Will open '.$post['url']);
-    $post_html = scraperwiki::scrape($post['url']);
-    $dom1 = new simple_html_dom();
-    $dom1->load($post_html);
+    $dom1->load(scraperwiki::scrape($post['url']));
     $body = $dom1->find('article.post-text')[0];
+    
+    print_r(json_encode($body));
     
     if(!is_null($body)) {
       $post['short_description'] = $post['description'];
