@@ -23,7 +23,7 @@ foreach($items as $item) {
   $post = array();
   
   $id = $item->getAttribute('data-id');
-  $result = scraperwiki::select("* from posts where 'id'='$id'");
+  $result = scraperwiki::select("* from posts where 'uuid'='$id'");
   print_r(json_encode($result));
   
   if(count($result) >= 1) continue;
