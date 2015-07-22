@@ -15,6 +15,12 @@ $dom->load($html);
 $items = $dom->find('.post-list-wrap .post-list-container-item');
 $posts = array();
 $last  = scraperwiki::select("id from posts LIMIT 1");
+if(count($last) == 0) {
+  $last = 1
+}
+else {
+  $last = $last[0];
+}
 print_r(json_encode($last));
 
 foreach($items as $item) {
