@@ -39,7 +39,7 @@ foreach($items as $item) {
   
   if($post['url'] != '') {
     print_r('Will open '.$post['url']);
-    $dom1->load(scraperwiki::scrape($post['url']));
+    $dom1->load(scraperwiki::scrape('http://point.md' . $post['url']));
     $body = $dom1->find('article.post-text')[0];
     
     print_r(json_encode($body));
