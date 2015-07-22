@@ -38,8 +38,11 @@ foreach($items as $item) {
   $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
   
   if($post['url'] != '') {
-    print_r('Will open '.$post['url']);
-    $dom1->load(scraperwiki::scrape('http://point.md' . $post['url']));
+    $url = 'http://point.md' . $post['url'];
+    print_r('Will open '.$url);
+    $html_tmp = scraperwiki::scrape($url);
+    print_r('Post more grabbed');
+    $dom1->load($html_tmp);
     $body = $dom1->find('article.post-text')[0];
     
     print_r(json_encode($body));
