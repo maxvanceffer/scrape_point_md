@@ -14,6 +14,8 @@ $dom->load($html);
 
 $items = $dom->find('.post-list-wrap .post-list-container-item');
 $posts = array();
+$last  = scraperwiki::select("id from posts LIMIT 1");
+print_r(json_encode($last));
 
 foreach($items as $item) {
   $post = array();
@@ -24,7 +26,8 @@ foreach($items as $item) {
   
   if(count($result) >= 1) continue;
   
-  $post['id']    = hexdec( md5($id) );
+  $post['id']    = $last ++;
+  $post['uuid']  = $id;
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
