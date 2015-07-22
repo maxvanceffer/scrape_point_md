@@ -30,10 +30,19 @@ foreach($items as $item) {
   
   $post['id']    = $last++;
   $post['uuid']  = $id;
+  $post['url']   = $item->find('a[itemprop="URL"]')[0]->getAttribute('href');
   $post['title'] = $item->find('a[itemprop="URL"]')[0]->text();
   $post['image'] = $item->find('.post-list-container-item-img img')[0]->getAttribute('src');
   $post['description'] = $item->find('p[itemprop="description"]')[0]->text();
   $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
+  
+  if($post['url'] != '') {
+    $post_html = scraperwiki::scrape($post['url']);
+    $dom1 = new simple_html_dom();
+    $dom1->load($post_html);
+    $post['short_description'] = $post['description'];
+    $post['description'] = $dom1->find('article.post-text')[0]->text();
+  }
   
   print_r(json_encode($post));
   
