@@ -37,11 +37,16 @@ foreach($items as $item) {
   $post['keywords'] = $item->find('div.post-list-container-item-text-info')[0]->find('span')[2]->text();
   
   if($post['url'] != '') {
+    print_r('Will open '.$post['url']);
     $post_html = scraperwiki::scrape($post['url']);
     $dom1 = new simple_html_dom();
     $dom1->load($post_html);
-    $post['short_description'] = $post['description'];
-    $post['description'] = $dom1->find('article.post-text')[0]->text();
+    $body = $dom1->find('article.post-text')[0];
+    
+    if(!is_null($body)) {
+      $post['short_description'] = $post['description'];
+      $post['description'] = $body->text(); 
+    }
   }
   
   print_r(json_encode($post));
